@@ -1,0 +1,57 @@
+Server:
+  RunMode: debug
+  HttpPort: 8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+  ContextTimeout: 60
+
+# App应用配置，设置默认每叶数量，所允许的最大每页数量，
+# 以及默认的日志存储路径
+App:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  LogSavePath: storage/logs
+  LogFileName: app
+  LogFileExt: .log
+
+  # 上传文件的最终保存目录
+  UploadSavePath: storage/uploads
+
+  # 上传文件后用于展示的文件服务地址
+  UploadServerUrl: http://127.0.0.1:8000/static
+
+  # 上传文件所允许的最大空间大小
+  UploadImageMaxSize: 4 # MB
+
+  # 上传文件所允许的文件后缀
+  UploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
+
+Database:
+  DBType: mysql
+  Username: root
+  Password: 11223344
+  Host: 127.0.0.1:3306
+  DBName: blog_service
+  TablePrefix: blog_
+  Charset: utf8
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
+
+JWT:
+  Secret: Ryan
+  Issuer: blog-service
+  Expire: 7200
+
+Email:
+  Host: smtp.qq.com
+  Port: 465
+  UserName: 100000@qq.com
+  Password: 10000
+  IsSSL: true
+  From: 10000@qq.com
+  To:
+    - 10000@qq.com
