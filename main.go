@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"github.com/gin-gonic/gin"
 	"github.com/go-programming-tour-book/blog-server/global"
 	"github.com/go-programming-tour-book/blog-server/internal/model"
@@ -18,12 +19,12 @@ import (
 	"time"
 )
 
-//var (
-//	port      string
-//	runMode   string
-//	config    string
-//	isVersion bool
-//)
+var (
+	port      string
+	runMode   string
+	config    string
+	isVersion bool
+)
 
 // 在go语言中，init方法常用于应用程序内的一些初始化操作，在main方法前自动执行
 // 不要滥用init方法，如果init方法过多，则很容易迷失在各个库的init方法中
@@ -121,22 +122,22 @@ func setupSetting() error {
 		return err
 	}
 
-	//err = setupFlag()
-	//if err != nil {
-	//	log.Fatalf("init.setupFlag err: %v", err)
-	//}
+	err = setupFlag()
+	if err != nil {
+		log.Fatalf("init.setupFlag err: %v", err)
+	}
 
 	global.JWTSetting.Expire *= time.Second
 	global.SeverSetting.ReadTimeout *= time.Second
 	global.SeverSetting.WriteTimeout *= time.Second
 
-	//if port != ""{
-	//	global.SeverSetting.HttpPort = port
-	//}
-	//
-	//if runMode != ""{
-	//	global.SeverSetting.RunMode = runMode
-	//}
+	if port != ""{
+		global.SeverSetting.HttpPort = port
+	}
+
+	if runMode != ""{
+		global.SeverSetting.RunMode = runMode
+	}
 
 	return nil
 }
@@ -172,12 +173,12 @@ func setupTracer() error {
 	return nil
 }
 
-//func setupFlag() error {
-//	flag.StringVar(&port, "port", "", "启动端口")
-//	flag.StringVar(&runMode, "mode", "", "启动模式")
-//	flag.StringVar(&config, "config", "configs/", "指定要使用的配置文件路径")
-//	//flag.BoolVar(&isVersion, "version", false, "编译信息")
-//	flag.Parse()
-//
-//	return nil
-//}
+func setupFlag() error {
+	flag.StringVar(&port, "port", "", "启动端口")
+	flag.StringVar(&runMode, "mode", "", "启动模式")
+	flag.StringVar(&config, "config", "configs/", "指定要使用的配置文件路径")
+	flag.BoolVar(&isVersion, "version", false, "编译信息")
+	flag.Parse()
+
+	return nil
+}
